@@ -1,0 +1,148 @@
+﻿@model TopBusToursLondon.ViewModels.TicketViewModel
+@{
+    if (Model.Ticket.Id != 0)
+    {
+        ViewData["Title"] = "Edit Ticket";
+    }
+    else
+    {
+        ViewData["Title"] = "Add New Ticket";
+    }
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+
+    string title = "Add New Ticket";
+}
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    @if (Model.Ticket.Id != 0)
+    {
+        <input type="hidden" asp-for="Ticket.Id" />
+        title = "Edit Ticket";
+    }
+    <div class="card card-success">
+        <div class="card-header">
+            <div class="card-title">@title</div>
+        </div>
+        <div class="card-body bg-light">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <fieldset>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label asp-for="Ticket.TourId"></label>
+                            <select asp-for="Ticket.TourId" asp-items="@Model.TourSelectList" class="form-control">
+                            </select>
+                            <span asp-validation-for="Ticket.TourId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label asp-for="Ticket.TicketName"></label>
+                            <input asp-for="Ticket.TicketName" class="form-control" />
+                            <span asp-validation-for="Ticket.TicketName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="Ticket.ChildPrice"></label>
+                        <input asp-for="Ticket.ChildPrice" class="form-control" />
+                        <span asp-validation-for="Ticket.ChildPrice" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Ticket.AdultPrice"></label>
+                        <input asp-for="Ticket.AdultPrice" class="form-control" />
+                        <span asp-validation-for="Ticket.AdultPrice" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Ticket.FamilyPrice"></label>
+                        <input asp-for="Ticket.FamilyPrice" class="form-control" />
+                        <span asp-validation-for="Ticket.FamilyPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group form-check text-primary">
+                    <label class="form-check-label">
+                        <input class="form-check-input bg-primary" asp-for="Ticket.IsOnOffer" /> @Html.DisplayNameFor(model => model.Ticket.IsOnOffer)
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="Ticket.OfferChildPrice"></label>
+                        <input asp-for="Ticket.OfferChildPrice" class="form-control" />
+                        <span asp-validation-for="Ticket.OfferChildPrice" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Ticket.OfferAdultPrice"></label>
+                        <input asp-for="Ticket.OfferAdultPrice" class="form-control" />
+                        <span asp-validation-for="Ticket.OfferAdultPrice" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Ticket.OfferFamilyPrice"></label>
+                        <input asp-for="Ticket.OfferFamilyPrice" class="form-control" />
+                        <span asp-validation-for="Ticket.OfferFamilyPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group form-check text-primary">
+                    <label class="form-check-label">
+                        <input class="form-check-input bg-primary" asp-for="Ticket.IsActive" /> @Html.DisplayNameFor(model => model.Ticket.IsActive)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ticket.Description"></label>
+                    <textarea asp-for="Ticket.Description" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="Ticket.Description" class="text-danger"></span>
+                </div>
+                @if (Model.Ticket.Id != 0)
+                {
+                    <div class="mb-1">
+                        <label>Existing Ticket Image</label>
+                        <br />
+                        <img src="~/Uploads/Ticket/@Model.Ticket.TicketImage" style="width:150px;height:80px" />
+                    </div>
+                }
+                <div class="form-group">
+                    <label for="exampleInputFile" asp-for="Ticket.TicketImageFile"></label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input asp-for="Ticket.TicketImageFile" accept="image/*" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Ticket.TicketImageFile" class="text-danger"></span>
+                </div>
+                @if (Model.Ticket.Id != 0)
+                {
+                    <div class="mb-1">
+                        <label>Existing Cover Image</label>
+                        <br />
+                        <img src="~/Uploads/Ticket/@Model.Ticket.CoverImage" style="width:150px;height:80px" />
+                    </div>
+
+                }
+                <div class="form-group">
+                    <label for="exampleInputFile" asp-for="Ticket.CoverImageFile"></label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input asp-for="Ticket.CoverImageFile" accept="image/*" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Ticket.CoverImageFile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ticket.MeetingPoint"></label>
+                    <input asp-for="Ticket.MeetingPoint" class="form-control" />
+                    <span asp-validation-for="Ticket.MeetingPoint" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> @(Model.Ticket.Id != 0 ? "Update" : "Create") Ticket</button>
+                    <a asp-action="Index" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i> Go Back</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

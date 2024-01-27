@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewData["Title"] = "Routes";
+    ViewBag.Icon = "fas fa-tachometer-alt";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<div class="container">
+    <a href="@Url.Action("CreateNewTour","Dashboard")" data-target="#createnewtour" data-toggle="modal" class="btn btn-outline-success mb-1">
+        <i class="fas fa-plus-circle"></i> Add New Route
+    </a>
+    <div class="card card-purple shadow-lg">
+        <div class="card-header">
+            <div class="card-title">
+                All Routes
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Umair</td>
+                        <td>User</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Dashboard")"><i class="fas fa-pencil-alt"></i></a> |
+                            <a href="@Url.Action("Delete","Dashboard")"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Umair</td>
+                        <td>User</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Dashboard")"><i class="fas fa-pencil-alt"></i></a> |
+                            <a href="@Url.Action("Delete","Dashboard")"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Umair</td>
+                        <td>User</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Dashboard")"><i class="fas fa-pencil-alt"></i></a> |
+                            <a href="@Url.Action("Delete","Dashboard")"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Umair</td>
+                        <td>User</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Dashboard")"><i class="fas fa-pencil-alt"></i></a> |
+                            <a href="@Url.Action("Delete","Dashboard")"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Umair</td>
+                        <td>User</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Dashboard")"><i class="fas fa-pencil-alt"></i></a> |
+                            <a href="@Url.Action("Delete","Dashboard")"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Umair</td>
+                        <td>User</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Dashboard")"><i class="fas fa-pencil-alt"></i></a> |
+                            <a href="@Url.Action("Delete","Dashboard")"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createnewtour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-success text-bold" id="exampleModalLabel">Routes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <div class="card-title">Add New Route</div>
+                    </div>
+                    <div class="card-body bg-light">
+                        <form>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label>Route Name</label>
+                                    <input class="form-control" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" type="text" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Route Time</label>
+                                    <input class="form-control" type="time" id="routetime" name="routetime" />
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label text-primary" style="height:40px">
+                                        <input class="form-check-input" type="checkbox" value="" checked="">
+                                        Is Active
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Route Image</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tour</label>
+                                    <select class="form-control">
+                                        <option>Big Bus Tours</option>
+                                        <option>Golden Tours</option>
+                                        <option>Original Tours</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ticket</label>
+                                    <select class="form-control">
+                                        <option>24 Hours- Big Bus Tours</option>
+                                        <option>48 Hours- Golden Tours</option>
+                                        <option>Premium- Original Tours</option>
+                                    </select>
+                                </div>
+                                <a href="#" type="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Route</a>
+                                <a href="#" type="button" class="float-right btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> Cancel</a>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

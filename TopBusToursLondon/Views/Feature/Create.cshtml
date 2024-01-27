@@ -1,0 +1,159 @@
+﻿@model TopBusToursLondon.ViewModels.FeatureViewModel
+@{
+    ViewData["Title"] = "Add New Feature";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<form method="post" asp-action="Create">
+    <div class="card card-success">
+        <div class="card-header">
+            <div class="card-title">Add New Feature</div>
+        </div>
+        <div class="card-body bg-light">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <fieldset>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="Feature.TourId"></label>
+                            <select id="TourList" asp-for="Feature.TourId" asp-items="@Model.TourSelectList" class="form-control">
+                            </select>
+                            <span asp-validation-for="Feature.TourId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="Feature.TicketId"></label>
+                            <select id="TicketList" asp-for="Feature.TicketId" class="form-control">
+                            </select>
+                            <span asp-validation-for="Feature.TicketId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label asp-for="Feature.Description"></label>
+                            <div class="row">
+                                <div class="col-10">
+                                    <input type="text" id="itemDescription" class="form-control" placeholder="Enter Feature" />
+                                </div>
+
+                                <div class="col-2">
+                                    <button id="addDescription" type="button" class="btn btn-success"><i class="fas fa-plus-circle"></i>  Add</button>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Feature.Description" class="text-danger"></span>
+                            <br />
+                            <div class="row">
+                                <div class="col-10">
+                                    <ul id="descriptionList" class="list-group">
+                                    </ul>
+                                </div>
+                                <div class="col-2">
+                                </div>
+                            </div>
+                        </div>
+                        <input asp-for="Feature.Description" id="TourFeature_Description" hidden />
+                    </div>
+                </div>
+                <div class="form-group form-check text-primary">
+                    <label class="form-check-label">
+                        <input class="form-check-input bg-primary" asp-for="Feature.IsActive" /> @Html.DisplayNameFor(model => model.Feature.IsActive)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus-square"></i> Add Feature</button>
+                    <a asp-action="Index" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i> Go Back</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        $(document).ready(function () {
+            //default
+            //var items = "<option value='0'>--Select Ticket--</option>";
+            //$("#TicketList").html(items);
+
+            $("#TourList").change(function () {
+                var TourId = $("#TourList").val();
+                var url = "/Feature/GetTicketList";
+
+                $.getJSON(url,
+                    { TourId: TourId },
+                    function (data) {
+                        var item = "";
+                        $("#TicketList").empty();
+                        $.each(data,
+                            function (i, ticket) {
+                                item += '<option value="' + ticket.value + '">' + ticket.text + '</option>';
+                            });
+                        $("#TicketList").html(item);
+                    });
+            });
+
+            var TourId = $("#TourList").val();
+            var url = "/Feature/GetTicketList";
+
+            $.getJSON(url,
+                { TourId: TourId },
+                function (data) {
+                    var item = "";
+                    $("#TicketList").empty();
+                    $.each(data,
+                        function (i, ticket) {
+                            item += '<option value="' + ticket.value + '">' + ticket.text + '</option>';
+                        });
+                    $("#TicketList").html(item);
+                });
+
+            // Insert or Update List Items
+            var descriptionList = [];
+
+            $("#addDescription").click(function () {
+
+                var description = $("#itemDescription").val();
+
+                if (description.length > 0) {
+
+                    if (descriptionList.length === 0) {
+                        $("#descriptionList").append("<li class='list-group-item'>" + description + "</li>");
+                        descriptionList.push(description);
+
+                        description = description + ',';
+                        $("#TourFeature_Description").val(description);
+
+                        $("#itemDescription").val("");
+
+                    } else {
+
+                        if (descriptionList.length > 9) {
+                            alert("You can add maximum 10 descriptions for a single ticket.");
+                            return;
+                        }
+
+                        if (descriptionList.indexOf(description) <= -1) {
+                            $("#descriptionList").append("<li class='list-group-item'>" + description + "</li>");
+                            $("#itemDescription").val("");
+                            descriptionList.push(description);
+
+                            var tempDescription = $("#TourFeature_Description").val();
+                            tempDescription = tempDescription + description + ',';
+                            $("#TourFeature_Description").val(tempDescription);
+                        } else {
+                            toastr.error("This Feature already exists in the list.");
+                            toastr.options = {
+                                positionClass: 'toast-top-center'
+                            };
+                            return;
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

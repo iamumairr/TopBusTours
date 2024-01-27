@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\TopBusToursLondon_Business\TopBusToursLondon_Business.csproj" />
+		<ProjectReference Include="..\TopBusToursLondon_Model\TopBusToursLondon_Model.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Views\Newsletters\" />
+		<Folder Include="wwwroot\Uploads\Ticket\" />
+		<Folder Include="wwwroot\Uploads\Tour\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MailKit" Version="4.3.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+		<PackageReference Include="MimeKit" Version="4.3.0" />
+	</ItemGroup>
+
+</Project>

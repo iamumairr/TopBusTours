@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TopBusToursLondon_Model.Models.Highlight>
+@{
+    ViewData["Title"] = "Highlights";
+    ViewBag.Icon = "fas fa-stream";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="container">
+    <a asp-action="Create" asp-controller="Highlight" class="btn btn-success mb-1 text-white">
+        <i class="fas fa-plus-circle"></i> Add New Highlight
+    </a>
+    <div id="printbar" class="float-right"></div>
+    @if (Model.Any())
+    {
+        <div class="card card-purple shadow-lg">
+            <div class="card-body" style="font-size:15px">
+                <table id="DT_load" class="table table-bordered table-striped table-hover w-100">
+                    <thead>
+                        <tr>
+                            <th>Tour</th>
+                            <th>Ticket</th>
+                            <th>Description</th>
+                            <th>Is Active</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@item.Tour.TourName</td>
+                            <td>@item.Ticket.TicketName</td>
+                            <td>@item.Description</td>
+                            @if (item.IsActive)
+                            {
+                                <td><i class="fa fa-check-circle text-green"></i></td>
+                            }
+                            else
+                            {
+                                <td><i class="fa fa-times-circle text-danger"></i></td>
+                            }
+                            <td>
+                                <a asp-action="Update" asp-controller="Highlight" asp-route-id="@item.Id" class='btn btn-outline-primary btn-sm text-primary mx-1' style="cursor:pointer">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a asp-action="Delete" asp-controller="Highlight" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm text-danger mx-1" style="cursor:pointer">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Oops!</strong> No highlights were found. Please add a highlight first.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+</div>
+

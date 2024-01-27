@@ -1,0 +1,49 @@
+﻿@model TopBusToursLondon.ViewModels.TicketScheduleVM
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<form method="post">
+    <input type="hidden" asp-for="TicketSchedule.Id" />
+    <div class="card card-success">
+        <div class="card-header">
+            <div class="card-title">Update Ticket Schedule</div>
+        </div>
+        <div class="card-body bg-light">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <fieldset>
+                <div class="form-group">
+                    <label asp-for="TicketSchedule.TicketId"></label>
+                    <select asp-for="TicketSchedule.TicketId" asp-items="@Model.TicketSelectList" class="form-control">
+                    </select>
+                    <span asp-validation-for="TicketSchedule.TicketId" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="TicketSchedule.ScheduleId"></label>
+                            <select asp-for="TicketSchedule.ScheduleId" asp-items="@Model.ScheduleSelectList" class="form-control"></select>
+                            <span asp-validation-for="TicketSchedule.ScheduleId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="TicketSchedule.Value"></label>
+                            <input asp-for="TicketSchedule.Value" class="form-control" />
+                            <span asp-validation-for="TicketSchedule.Value" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Update Ticket Schedule</button>
+                    <a asp-action="Index" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i> Go Back</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

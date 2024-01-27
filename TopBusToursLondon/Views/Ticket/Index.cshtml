@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TopBusToursLondon_Model.Models.Ticket>
+@{
+    ViewData["Title"] = "Tickets";
+    ViewBag.Icon = "fas fa-ticket-alt";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="container">
+    <a asp-action="Upsert" asp-controller="Ticket" class="btn btn-success mb-1 text-white">
+        <i class="fas fa-plus-circle"></i> Add New Ticket
+    </a>
+    <div id="printbar" class="float-right"></div>
+    @if (Model.Count() > 0)
+    {
+        <div class="card card-purple shadow-lg">
+            <div class="card-body" style="font-size:14px">
+                <table id="DT_load" class="table table-sm table-bordered table-striped table-hover w-100">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Tour</th>
+                            <th>Ticket Name</th>
+                            <th>Prices</th>
+                            <th>On Offer</th>
+                            <th>Offer Prices</th>
+                            <th>Is Active</th>
+                            <th>Meeting Point</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="~/Uploads/Ticket/@item.TicketImage" style="width:72px;height:48px" />
+                                </td>
+                                <td>@item.Tour.TourName</td>
+                                <td>@item.TicketName</td>
+                                <td>
+                                    <b>Child:</b> @item.ChildPrice <br />
+                                    <b>Adult:</b> @item.AdultPrice <br />
+                                    <b>Family:</b> @item.FamilyPrice
+                                </td>
+                                @if (item.IsOnOffer)
+                                {
+                                    <td><i class="fa fa-check-circle text-green"></i></td>
+                                }
+                                else
+                                {
+                                    <td><i class="fas fa-times-circle text-danger"></i></td>
+                                }
+                                <td>
+                                    <b>Child:</b> @item.OfferChildPrice <br />
+                                    <b>Adult:</b> @item.OfferAdultPrice <br />
+                                    <b>Family:</b> @item.OfferFamilyPrice
+                                </td>
+                                @if (item.IsActive)
+                                {
+                                    <td><i class="fa fa-check-circle text-green"></i></td>
+                                }
+                                else
+                                {
+                                    <td><i class="fas fa-times-circle text-danger"></i></td>
+                                }
+                                <td>@item.MeetingPoint</td>
+                                <td width="11%">
+                                    <a asp-action="Upsert" asp-controller="Ticket" asp-route-id="@item.Id" class='btn btn-outline-primary btn-sm text-primary mx-1' style="cursor:pointer">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm text-danger mx-1" style="cursor:pointer">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Oops!</strong> No Tickets were found. Please add a new ticket first.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+</div>

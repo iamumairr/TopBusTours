@@ -1,0 +1,98 @@
+﻿@model TopBusToursLondon.ViewModels.TourViewModel
+@{
+    if (Model.Tour.Id != 0)
+    {
+        ViewData["Title"] = "Edit Tour";
+    }
+    else
+    {
+        ViewData["Title"] = "Add New Tour";
+    }
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+
+    string title = "Add New Tour";
+}
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    @if (Model.Tour.Id != 0)
+    {
+        <input type="hidden" asp-for="Tour.Id" />
+        title = "Edit Tour";
+    }
+    <div class="card card-success">
+        <div class="card-header">
+            <div class="card-title">@title</div>
+        </div>
+        <div class="card-body bg-light">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <fieldset>
+                <div class="form-group">
+                    <label asp-for="Tour.CategoryId"></label>
+                    <select asp-for="Tour.CategoryId" asp-items="@Model.CategorySelectList" class="form-control">
+                    </select>
+                    <span asp-validation-for="Tour.CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tour.TourName"></label>
+                    <input asp-for="Tour.TourName" class="form-control" />
+                    <span asp-validation-for="Tour.TourName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tour.Description"></label>
+                    <textarea asp-for="Tour.Description" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="Tour.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check text-primary">
+                    <label class="form-check-label">
+                        <input class="form-check-input bg-primary" asp-for="Tour.IsActive" /> @Html.DisplayNameFor(model => model.Tour.IsActive)
+                    </label>
+                </div>
+                @if (Model.Tour.Id != 0)
+                {
+                    <div class="mb-1">
+                        <label>Existing Thumbnail Image</label>
+                        <br />
+                        <img src="~/Uploads/Tour/@Model.Tour.ThumbnailImage" style="width:150px;height:80px" />
+                    </div>
+                }
+                <div class="form-group">
+                    <label for="exampleInputFile" asp-for="Tour.ThumbnailImageFile"></label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input asp-for="Tour.ThumbnailImageFile" accept="image/*" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Tour.ThumbnailImageFile" class="text-danger"></span>
+                </div>
+                @if (Model.Tour.Id != 0)
+                {
+                    <div class="mb-1">
+                        <label>Existing Cover Image</label>
+                        <br />
+                        <img src="~/Uploads/Tour/@Model.Tour.CoverImage" style="width:150px;height:80px" />
+                    </div>
+
+                }
+                <div class="form-group">
+                    <label for="exampleInputFile" asp-for="Tour.CoverImageFile"></label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input asp-for="Tour.CoverImageFile" accept="image/*" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Tour.CoverImageFile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> @(Model.Tour.Id != 0 ? "Update" : "Create") Tour</button>
+                    <a asp-action="Index" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i> Go Back</a>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

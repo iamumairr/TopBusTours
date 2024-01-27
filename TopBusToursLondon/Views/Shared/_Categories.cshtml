@@ -1,0 +1,13 @@
+﻿
+     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Our Tours
+                        </a>
+                        @foreach (var category in Model)
+    {
+         <div class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="BigBus">Big Bus Tours</a>
+                        </div>
+    }
+                       
+                    </li>

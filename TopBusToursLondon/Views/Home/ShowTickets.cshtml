@@ -1,0 +1,116 @@
+﻿@model TopBusToursLondon.ViewModels.TicketVM
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<!--Main Image-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 px-0">
+            <img class="img-fluid bigbusimg" src="~/Uploads/Tour/@Model.CoverImage" />
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center mt-n5 ">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-md-auto my-auto col-sm-6 bg-light shadow border border-info rounded">
+            <h1 style="text-align:center;font-family:'Playfair Display'" class="h1_responsive">@Model.TourName</h1>
+            <p style="text-align:center" class="p_responsive">
+                Tickets of our most popular and comprehensive tour of London.
+            </p>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center mb-5 mb-sm-auto">
+            <h2 class="text-uppercase text-danger font-weight-bold">
+                <span style="color:#ffd800">Hop on Hop off </span>Sightseeing Tours
+            </h2>
+            <p class="text-center mt-3">
+                Explore the historic London on open top bus these double- decker buses designed with hop on hop off sightseeing on multiple stops, like tower bridge, st paul’s cathedral, parliament house ,Buckingham palace , London eye, BigBen, Hyd park,science museum and lot more.
+                On board with specially designed open top bus you will able to enjoy best view with city highlights multi language commentary or live English guide. You can design your itinerary and time as our tours are 24 hour, 48 hours,72 hours and time start when you 1 st hop on the bus. With one ticket you can enjoy on multiple route by bus , free river cruse and free walking tours. It covers all landmarks gave you flexibility to hop off to explore on your own as you like and re-join at any time as buses are very frequent on each stop.
+            </p>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="container">
+    <div class="row">
+        @if (Model.Tickets.Count() > 0)
+        {
+            @foreach (var item in Model.Tickets)
+            {
+                <div class="col-md-4 mt-4">
+                    <div class="card border border-0">
+                        <div class="bigbus">
+                            <img class="img-fluid" src="~/Uploads/Ticket/@item.TicketImage" alt="Big Bus Tour" />
+                            <h4>@item.TicketName</h4>
+                            <h5>@item.Tour.TourName</h5>
+                        </div>
+                        <div class="ticketfacility">
+                            <h4>Features</h4>
+                            @if (item.Features != null)
+                            {
+                                @foreach (var feature in item.Features)
+                                {
+                                    <h6>@feature.Description<i class="fa fa-check-circle"></i></h6>
+                                }
+                            }
+                        </div>
+                        <div class="pricedetails">
+                            <h6>
+                                <i class="fa fa-user"></i>
+                                Adults
+                                <br />
+                                <span>16+ years old</span>
+                            </h6>
+                            <h5>
+                                <span1>@item.AdultPrice</span1>
+                                &nbsp;
+                                <span2>@item.OfferAdultPrice</span2>
+                            </h5>
+                            <h6>
+                                <i class="fa fa-child"></i>
+                                Children
+                                <br />
+                                <span>5-15 years age</span>
+                            </h6>
+                            <h5>
+                                <span1>@item.ChildPrice</span1>
+                                &nbsp;
+                                <span2>@item.OfferChildPrice</span2>
+                            </h5>
+                            <h6>
+                                <i class="fa fa-users"></i>
+                                Family
+                                <br />
+                                <span>2 Adults, 2 Children</span>
+                            </h6>
+                            <h5>
+                                <span1>@item.FamilyPrice</span1>
+                                &nbsp;
+                                <span2>@item.OfferFamilyPrice</span2>
+                            </h5>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-6">
+                                    <a style="padding:10px 25px; font-size:12px;" class="button_slide slide_left " href="">Book Now</a>
+                                </div>
+                                <div class="col-md-5 col-sm-6 col-6">
+                                    <a style="padding:10px 25px; font-size:12px;" class="button_slide slide_left float-md-right" asp-controller="Home" asp-action="TicketDetails" asp-route-id="@item.Id">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

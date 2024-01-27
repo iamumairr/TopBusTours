@@ -1,0 +1,52 @@
+﻿@model TopBusToursLondon_Model.Models.Schedule
+@{
+    if (Model.Id != 0)
+    {
+        ViewData["Title"] = "Edit Schedule";
+    }
+    else
+    {
+        ViewData["Title"] = "Add New Schedule";
+    }
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-success">
+                <div class="card-header">
+                    <div class="card-title text-white">
+                        @(Model.Id!=0 ? "Edit" : "Add New") Schedule
+                    </div>
+                </div>
+                <br />
+                <div class="card-body bg-light border shadow">
+                    <form method="post">
+                        @if (Model.Id != 0)
+                        {
+                            <input type="hidden" asp-for="Id" />
+                        }
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Key" class="control-label"></label>
+                            <input asp-for="Key" class="form-control" />
+                            <span asp-validation-for="Key" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> @(Model.Id != 0 ? "Update" : "Create") Schedule</button>
+                            <a asp-action="Index" class="btn btn-warning"><i class="fas fa-sign-out-alt"></i> Go Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

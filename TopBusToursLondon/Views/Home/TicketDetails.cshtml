@@ -1,0 +1,216 @@
+﻿@model TopBusToursLondon_Model.Models.Ticket
+
+@{
+    ViewData["Title"] = "Ticket Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-left h2" style="font-family:'Playfair Display'">24 Hours Ticket - <span style="color:#ffd800">Hop on Hop off </span><span class="text-danger">Sightseeing Tours</span></h2>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-7 col-md-7 shadow shadow-lg">
+            <div class="py-3">
+                <img class="d-block w-100" src="~/Uploads/Ticket/@Model.TicketImage" alt="Ticket Image">
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 m-lg-auto m-md-auto mt-sm-1">
+            
+            <div class="pricedetails" style="border-top: 1px solid grey;border-radius: 20px 20px 20px 20px;background: #1A2B49">
+                <h3 class="text-center text-white">
+                    Price Details
+                </h3>
+                <hr style="border: 0; height: 2px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(154 152 152), rgba(0, 0, 0, 0));"/>
+                <h6 class="text-white">
+                    <i class="fa fa-user"></i>
+                    Adults
+                    <br />
+                    <span>16+ years old</span>
+                </h6>
+                <h5>
+                    <span1 style="color:white">@Model.AdultPrice</span1>
+                    &nbsp;
+                    <span2 id="adultprice">@Model.OfferAdultPrice</span2>
+                </h5>
+                <h6 class="text-white">
+                    <i class="fa fa-child"></i>
+                    Children
+                    <br />
+                    <span>5-15 years age</span>
+                </h6>
+                <h5>
+                    <span1 style="color:white">@Model.ChildPrice</span1>
+                    &nbsp;
+                    <span2 id="childprice">@Model.OfferChildPrice</span2>
+                </h5>
+                <h6 class="text-white">
+                    <i class="fa fa-users"></i>
+                    Family
+                    <br />
+                    <span>2 Adults, 2 Children</span>
+                </h6>
+                <h5>
+                    <span1 style="color:white">@Model.FamilyPrice</span1>
+                    &nbsp;
+                    <span2 id="familyprice">@Model.OfferFamilyPrice</span2>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="row">
+
+                    <div class="col-4">
+                        <div class="row d-flex align-content-center justify-content-center">
+                            <h5>Adult Ticket</h5>
+                        </div>
+                        <div class="row d-flex align-content-center justify-content-center">
+                            <span class="minus">-</span>
+                            <input class="range" type="text" id="adult" />
+                            <span class="plus">+</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row d-flex align-content-center justify-content-center">
+                            <h5>Child Price</h5>
+                        </div>
+                        <div class="row d-flex align-content-center justify-content-center">
+                            <span class="minus">-</span>
+                            <input class="range" type="text" id="child" />
+                            <span class="plus">+</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row d-flex align-content-center justify-content-center">
+                            <h5>Family Ticket</h5>
+                        </div>
+                        <div class="row d-flex align-content-center justify-content-center">
+                            <span class="minus">-</span>
+                            <input class="range" type="text" id="family" />
+                            <span class="plus">+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-5">
+                        <div class="float-right">
+                            <h4 class="h4">Sub Total: <span id="price" style="color:lightseagreen"></span></h4>
+                            <button id="booknow" class="btn btn-warning btn-block font-weight-bold" type="submit">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active text-info font-weight-bold ticketdetails" data-toggle="tab" href="#description">Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info font-weight-bold ticketdetails" data-toggle="tab" href="#schedule">Ticket Schedule</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info font-weight-bold ticketdetails" data-toggle="tab" href="#highlights">Highlights</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div id="description" class="container tab-pane active">
+
+                    @*<hr style="border: 0;height: 2px;background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(154 152 152), rgba(0, 0, 0, 0));"/>
+                <h4 class="text-uppercase text-dark blockquote font-weight-bold">Description</h4>*@
+                    &nbsp;
+                    <p>@Model.Description</p>
+
+                </div>
+                <div id="schedule" class="container tab-pane fade">
+                    &nbsp;
+                    @*<h4 class="text-uppercase text-dark blockquote font-weight-bold">Schedule</h4>*@
+                    @foreach (var item in Model.TicketSchedules)
+                    {
+                        <p>
+                            <b>@item.Schedule.Key</b>: @item.Value
+                        </p>
+                    }
+
+                </div>
+        <div id="highlights" class="container tab-pane fade">
+            &nbsp;
+            @*<h4 class="text-uppercase text-dark blockquote font-weight-bold">Highlights</h4>*@
+                    @if (Model.Highlights != null)
+                    {
+                        @foreach (var item in Model.Highlights)
+                        {
+                            <p><i style="color:#4cff00" class="fas fa-check"></i>  @item.Description</p>
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#adult').val(0);
+            $('#family').val(0);
+            $('#child').val(0);
+            $('.minus').click(function () {
+                var $input = $(this).parent().find('input');
+                var count = parseInt($input.val()) - 1;
+                count = count < 1 ? 0 : count;
+                $input.val(count);
+                $input.change();
+                return false;
+            });
+            $('.plus').click(function () {
+                var $input = $(this).parent().find('input');
+                $input.val(parseInt($input.val()) + 1);
+                $input.change();
+                return false;
+            });
+            $('.minus').change(function () {
+                var $input = $(this).parent().find('input');
+                var value = $input.val();
+                console.log(value);
+            });
+        });
+
+        var adultprice = document.getElementById('adult').value;
+        var childprice = document.getElementById('child').value;
+        var familyprice = document.getElementById('family').value;
+        console.log(adultprice);
+        console.log(childprice);
+        console.log(familyprice);
+
+
+        var adult = $('input#adult').val();
+        var child = $('input#child').val();
+        var family = $('input#family').val();
+
+        var totaladultprice = adultprice * adult;
+        var totalchildprice = childprice * child;
+        var totalfamilyprice = familyprice * family;
+    </script>
+
+}

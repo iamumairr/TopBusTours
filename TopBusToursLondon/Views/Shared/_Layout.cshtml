@@ -1,0 +1,145 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using TopBusToursLondon.Utility
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Top Bus Tours London</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div style="position:relative;z-index:1">
+        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+    </div>
+    <header>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img class="img-fluid" src="~/Images/Logo/logo.png" style="height: 40px" />
+            </a>
+            <a class="navbar-brand px-2 mynavbarbrand" asp-area="" asp-controller="Home" asp-action="Index">Top Bus Tours London</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Top Bus Tours
+                        </a>
+                        <div class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="BigBus">Big Bus Tours</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Services">Services</a>
+                    </li>
+                    <li>
+                        @if (HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) != null)
+                        {
+                            <a asp-action="Index" asp-controller="Cart" class="nav-link">
+                                @{
+                                    var count = HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart).Count;
+                                }
+                                <i class="fas fa-shopping-cart"></i> &nbsp;(@count)
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i>&nbsp; (0)
+                            </a>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container bottom_border">
+            <div class="row">
+                <div class=" col-sm-4 col-md col-sm-4  col-12 col">
+                    <h5 class="h5footer col_white pt2">Find us</h5>
+                    <!--headin5_amrc-->
+                    <address>
+                        <p>
+                            <i class="fa fa-location-arrow"></i>
+                            Victoria Top Bus Tours London outside
+                            national rail
+                            Victoria Station terminus
+                            place sw1v 1jr
+                        </p>
+                        <p><i class="fa fa-phone"></i><a href="tel:+ 0044 2080046767" style="color:#ccc"> + 0044 2080046767</a> <br /></p>
+                        <p><i class="fa fa fa-envelope"></i><a href="mailto:ask@topbustourslondon.com" style="color:#ccc"> ask@topbustourslondon.com</a></p>
+                    </address>
+                </div>
+                <div class=" col-sm-4 col-md  col-6 col">
+                    <h5 class="h5footer col_white pt2">Quick Links</h5>
+                    <!--headin5_amrc-->
+                    <ul class="footer_ul_amrc">
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                        <li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                        <li><a asp-controller="Home" asp-action="ShowTickets">Show Tickets</a></li>
+                        <li><a asp-controller="Home" asp-action="Services">Our Services</a></li>
+                    </ul>
+                    <!--footer_ul_amrc ends here-->
+                </div>
+                <div class=" col-sm-4 col-md  col-6 col">
+                    <h5 class="h5footer col_white pt2">Customer Support</h5>
+                    <!--headin5_amrc-->
+                    <ul class="footer_ul_amrc">
+                        <li><a asp-controller="Home" asp-action="FAQ">FAQs</a></li>
+                        <li><a asp-controller="Home" asp-action="Contact">Help</a></li>
+                        <li><a asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
+                        <li><a asp-controller="Home" asp-action="Terms">Terms and Conditions</a></li>
+                        <li><a asp-controller="Dashboard" asp-action="Index">Admin</a></li>
+                    </ul>
+                    <!--footer_ul_amrc ends here-->
+                </div>
+                <div class="col-sm-4 col-md  col-12 col">
+                    <h5 class="h5footer col_white pt2">Follow us</h5>
+                    <ul class="social-network social-circle">
+                        <li><a href="https://www.facebook.com/Topbustourslondon" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/top-bus-tours-london/" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="https://twitter.com/TopBusLondon" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/topbuslondon/" class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!--foote_bottom_ul_amrc ends here-->
+            <p class="text-center">Copyright &copy; @DateTime.Now.Year | All rights reserved with <a style="text-decoration: none; color:aqua" href="@Url.Action("Index","Home")">Top Bus Tours London</a></p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
